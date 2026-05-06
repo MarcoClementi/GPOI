@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<title>WBS – SmartPreventivo</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: Arial, sans-serif; background: #f5f7fa; padding: 30px; }
+
+  h1 { text-align: center; color: #1B4F72; font-size: 22px; margin-bottom: 4px; }
+  .subtitle { text-align: center; color: #555; font-size: 13px; margin-bottom: 30px; }
+
+  .tree { display: flex; flex-direction: column; align-items: center; }
+
+  /* ─── BOX STYLES ─── */
+  .box {
+    border-radius: 5px;
+    padding: 8px 14px;
+    font-size: 12.5px;
+    font-weight: bold;
+    text-align: center;
+    white-space: nowrap;
+    position: relative;
+    line-height: 1.3;
+  }
+  .l0  { background:#1B4F72; color:#fff; font-size:15px; padding:12px 30px; min-width:340px; }
+  .l1  { color:#fff; font-size:12px; padding:8px 16px; min-width:160px; }
+  .l1.pm   { background:#1E8449; }
+  .l1.an   { background:#2471A3; }
+  .l1.dev  { background:#8E44AD; }
+  .l1.test { background:#CA6F1E; }
+  .l1.rel  { background:#1ABC9C; }
+
+  .l2  { color:#fff; font-size:11px; padding:6px 10px; min-width:130px; }
+  .l2.pm   { background:#27AE60; }
+  .l2.an   { background:#2E86C1; }
+  .l2.dev  { background:#9B59B6; }
+  .l2.test { background:#D68910; }
+  .l2.rel  { background:#17A589; }
+
+  .wp  { border-radius:4px; font-size:10px; padding:5px 8px; min-width:120px; font-weight:normal; }
+  .wp.pm   { background:#D5F5E3; color:#1E8449; border:1px solid #82E0AA; }
+  .wp.an   { background:#D6EAF8; color:#1B4F72; border:1px solid #85C1E9; }
+  .wp.dev  { background:#E8DAEF; color:#6C3483; border:1px solid #C39BD3; }
+  .wp.test { background:#FDEBD0; color:#A04000; border:1px solid #F0B27A; }
+  .wp.rel  { background:#D1F2EB; color:#117A65; border:1px solid #76D7C4; }
+
+  .pct { font-size:10px; font-weight:normal; opacity:0.85; display:block; margin-top:2px; }
+
+  /* ─── TREE LAYOUT ─── */
+  .row { display:flex; align-items:flex-start; justify-content:center; gap:0; position:relative; }
+  .col { display:flex; flex-direction:column; align-items:center; position:relative; }
+
+  /* vertical connector FROM parent */
+  .col::before {
+    content:''; position:absolute; top:0; left:50%;
+    width:2px; height:16px; background:#aaa; transform:translateX(-50%);
+  }
+  /* horizontal bar spanning siblings */
+  .row::before {
+    content:''; position:absolute; top:0; left:0; right:0;
+    height:2px; background:#aaa; z-index:0;
+  }
+  /* hide bar for single child rows */
+  .row.single::before { display:none; }
+
+  .connector-v { width:2px; background:#aaa; margin:0 auto; }
+  .cv12 { height:16px; }
+  .cv23 { height:14px; }
+
+  /* legend */
+  .legend { display:flex; flex-wrap:wrap; justify-content:center; gap:10px; margin-top:28px; }
+  .leg-item { display:flex; align-items:center; gap:6px; font-size:11px; color:#444; }
+  .leg-dot  { width:14px; height:14px; border-radius:3px; }
+
+  /* WP table at bottom */
+  .wp-table { width:100%; max-width:1100px; margin:30px auto 0; border-collapse:collapse; font-size:11.5px; }
+  .wp-table th { background:#1B4F72; color:#fff; padding:8px 10px; text-align:left; }
+  .wp-table td { padding:7px 10px; border-bottom:1px solid #ddd; vertical-align:top; }
+  .wp-table tr:nth-child(even) td { background:#f0f4f8; }
+  .wp-table .id  { font-weight:bold; white-space:nowrap; }
+  .wp-table .tag { display:inline-block; border-radius:3px; padding:1px 5px; font-size:10px; font-weight:bold; margin-right:4px; }
+</style>
+</head>
+<body>
+
+<h1>Work Breakdown Structure (WBS)</h1>
+<p class="subtitle">SmartPreventivo – Chatbot per preventivi edilizi </p>
+
+<div class="tree">
+
+  <!-- LEVEL 0 -->
+  <div class="box l0">SmartPreventivo – Chatbot Preventivi Edilizi<span class="pct">WBS Livello 0  •  100%</span></div>
+  <div class="connector-v cv12"></div>
+
+  <!-- LEVEL 1 row -->
+  <div style="position:relative; display:flex; align-items:flex-start; justify-content:center; gap:14px;">
+    <!-- horizontal bar -->
+    <div style="position:absolute; top:0; left:6%; right:6%; height:2px; background:#aaa; z-index:0;"></div>
+
+    <!-- 1.1 PM -->
+    <div class="col">
+      <div class="connector-v cv12"></div>
+      <div class="box l1 pm">1.1 Project Management<span class="pct">10%</span></div>
+      <div class="connector-v cv23"></div>
+      <div style="display:flex; gap:6px; position:relative;">
+        <div style="position:absolute; top:0; left:8%; right:8%; height:2px; background:#aaa;"></div>
+        <div class="col"><div class="connector-v cv23"></div><div class="box l2 pm">1.1.1 Pianificazione<span class="pct">3%</span></div><div class="connector-v cv23"></div><div class="box wp pm">WP-PM-01<br>Setup Basecamp + piano</div></div>
+        <div class="col"><div class="connector-v cv23"></div><div class="box l2 pm">1.1.2 Riunioni<span class="pct">4%</span></div><div class="connector-v cv23"></div><div class="box wp pm">WP-PM-02<br>Meeting settimanali</div></div>
+        <div class="col"><div class="connector-v cv23"></div><div class="box l2 pm">1.1.3 Reportistica<span class="pct">3%</span></div><div class="connector-v cv23"></div><div class="box wp pm">WP-PM-03<br>Docum. e status report</div></div>
+      </div>
+    </div>
+
+    <!-- 1.2 Analisi -->
+    <div class="col">
+      <div class="connector-v cv12"></div>
+      <div class="box l1 an">1.2 Analisi e Progettazione<span class="pct">20%</span></div>
+      <div class="connector-v cv23"></div>
+      <div style="display:flex; gap:6px; position:relative;">
+        <div style="position:absolute; top:0; left:8%; right:8%; height:2px; background:#aaa;"></div>
+        <div class="col"><div class="connector-v cv23"></div><div class="box l2 an">1.2.1 Requisiti<span class="pct">7%</span></div><div class="connector-v cv23"></div><div class="box wp an">WP-AN-01<br>Workshop Giovanni</div><div class="connector-v cv23" style="height:6px;"></div><div class="box wp an">WP-AN-02<br>Revisione CEO</div></div>
+        <div class="col"><div class="connector-v cv23"></div><div class="box l2 an">1.2.2 Architettura<span class="pct">7%</span></div><div class="connector-v cv23"></div><div class="box wp an">WP-AN-03<br>Schema DB + API</div><div class="connector-v cv23" style="height:6px;"></div><div class="box wp an">WP-AN-04<br>Stack tecnologico</div></div>
+        <div class="col"><div class="connector-v cv23"></div><div class="box l2 an">1.2.3 UX Design<span class="pct">6%</span></div><div class="connector-v cv23"></div><div class="box wp an">WP-AN-05<br>Wireframe chatbot</div><div class="connector-v cv23" style="height:6px;"></div><div class="box wp an">WP-AN-06<br>Design componenti</div></div>
+      </div>
+    </div>
+
+    <!-- 1.3 Sviluppo -->
+    <div class="col">
+      <div class="connector-v cv12"></div>
+      <div class="box l1 dev">1.3 Sviluppo<span class="pct">50%</span></div>
+      <div class="connector-v cv23"></div>
+      <div style="display:flex; gap:6px; position:relative;">
+        <div style="position:absolute; top:0; left:5%; right:5%; height:2px; background:#aaa;"></div>
+        <div class="col"><div class="connector-v cv23"></div><div class="box l2 dev">1.3.1 Frontend<span class="pct">18%</span></div><div class="connector-v cv23"></div><div class="box wp dev">WP-FE-01<br>Setup React + routing</div><div class="connector-v cv23" style="height:6px;"></div><div class="box wp dev">WP-FE-02<br>Flusso chatbot</div><div class="connector-v cv23" style="height:6px;"></div><div class="box wp dev">WP-FE-03<br>Mobile-first UI</div></div>
+        <div class="col"><div class="connector-v cv23"></div><div class="box l2 dev">1.3.2 Backend<span class="pct">22%</span></div><div class="connector-v cv23"></div><div class="box wp dev">WP-BE-01<br>Node.js + PostgreSQL</div><div class="connector-v cv23" style="height:6px;"></div><div class="box wp dev">WP-BE-02<br>API REST chatbot</div><div class="connector-v cv23" style="height:6px;"></div><div class="box wp dev">WP-BE-03<br>Motore calcolo ★</div><div class="connector-v cv23" style="height:6px;"></div><div class="box wp dev">WP-BE-04<br>Email SMTP</div></div>
+        <div class="col"><div class="connector-v cv23"></div><div class="box l2 dev">1.3.3 CRM Panel<span class="pct">10%</span></div><div class="connector-v cv23"></div><div class="box wp dev">WP-CRM-01<br>Dashboard lead</div><div class="connector-v cv23" style="height:6px;"></div><div class="box wp dev">WP-CRM-02<br>Admin prezzi</div><div class="connector-v cv23" style="height:6px;"></div><div class="box wp dev">WP-CRM-03<br>Notifiche per ruolo</div></div>
+      </div>
+    </div>
+
+    <!-- 1.4 Testing -->
+    <div class="col">
+      <div class="connector-v cv12"></div>
+      <div class="box l1 test">1.4 Testing e Qualità<span class="pct">12%</span></div>
+      <div class="connector-v cv23"></div>
+      <div style="display:flex; gap:6px; position:relative;">
+        <div style="position:absolute; top:0; left:8%; right:8%; height:2px; background:#aaa;"></div>
+        <div class="col"><div class="connector-v cv23"></div><div class="box l2 test">1.4.1 Test tecnici<span class="pct">5%</span></div><div class="connector-v cv23"></div><div class="box wp test">WP-TS-01<br>Unit + Integration test</div></div>
+        <div class="col"><div class="connector-v cv23"></div><div class="box l2 test">1.4.2 UAT<span class="pct">4%</span></div><div class="connector-v cv23"></div><div class="box wp test">WP-TS-02<br>Beta testing utenti</div></div>
+        <div class="col"><div class="connector-v cv23"></div><div class="box l2 test">1.4.3 Bug fixing<span class="pct">3%</span></div><div class="connector-v cv23"></div><div class="box wp test">WP-TS-03<br>Risoluzione criticità</div></div>
+      </div>
+    </div>
+
+    <!-- 1.5 Rilascio -->
+    <div class="col">
+      <div class="connector-v cv12"></div>
+      <div class="box l1 rel">1.5 Rilascio e Deploy<span class="pct">8%</span></div>
+      <div class="connector-v cv23"></div>
+      <div style="display:flex; gap:6px; position:relative;">
+        <div style="position:absolute; top:0; left:8%; right:8%; height:2px; background:#aaa;"></div>
+        <div class="col"><div class="connector-v cv23"></div><div class="box l2 rel">1.5.1 Infrastruttura<span class="pct">3%</span></div><div class="connector-v cv23"></div><div class="box wp rel">WP-RL-01<br>Server + Deploy</div></div>
+        <div class="col"><div class="connector-v cv23"></div><div class="box l2 rel">1.5.2 Integrazione<span class="pct">5%</span></div><div class="connector-v cv23"></div><div class="box wp rel">WP-RL-02<br>Sito cliente</div><div class="connector-v cv23" style="height:6px;"></div><div class="box wp rel">WP-RL-03<br>Formazione utenti</div><div class="connector-v cv23" style="height:6px;"></div><div class="box wp rel">WP-RL-04<br>Go-live ◆</div></div>
+      </div>
+    </div>
+
+  </div><!-- end row livello 1 -->
+</div><!-- end tree -->
+
+<!-- LEGENDA -->
+<div class="legend">
+  <div class="leg-item"><div class="leg-dot" style="background:#1E8449;"></div>Project Management (10%)</div>
+  <div class="leg-item"><div class="leg-dot" style="background:#2471A3;"></div>Analisi e Progettazione (20%)</div>
+  <div class="leg-item"><div class="leg-dot" style="background:#8E44AD;"></div>Sviluppo (50%)</div>
+  <div class="leg-item"><div class="leg-dot" style="background:#CA6F1E;"></div>Testing e Qualità (12%)</div>
+  <div class="leg-item"><div class="leg-dot" style="background:#1ABC9C;"></div>Rilascio e Deploy (8%)</div>
+  <div class="leg-item"><div class="leg-dot" style="background:#ccc; border:1px solid #999;"></div>★ = Attività critica</div>
+</div>
+
+<!-- TABELLA WP -->
+<table class="wp-table">
+  <thead><tr><th>WP ID</th><th>Nome Work Package</th><th>Obiettivo</th><th>Deliverable</th><th>Durata</th><th>Risorse</th></tr></thead>
+  <tbody>
+    <tr><td class="id">WP-AN-01</td><td>Workshop Giovanni</td><td>Estrarre variabili e formule di pricing</td><td>Documento formule di calcolo validato</td><td>5 gg</td><td>Marco + Giovanni</td></tr>
+    <tr><td class="id">WP-AN-02</td><td>Revisione requisiti CEO</td><td>Validare SRS con committente</td><td>SRS firmato</td><td>2 gg</td><td>Marco + Luca</td></tr>
+    <tr><td class="id">WP-AN-03</td><td>Schema DB + API design</td><td>Definire struttura dati e contratti API</td><td>Diagramma ER + spec API</td><td>4 gg</td><td>Dev + Marco</td></tr>
+    <tr><td class="id">WP-AN-04</td><td>Scelta stack tecnologico</td><td>Selezionare framework, DB, hosting</td><td>ADR (Architecture Decision Record)</td><td>2 gg</td><td>Dev</td></tr>
+    <tr><td class="id">WP-AN-05</td><td>Wireframe chatbot</td><td>Progettare il flusso UX passo-passo</td><td>Wireframe Figma approvati</td><td>4 gg</td><td>Dev + Marco</td></tr>
+    <tr><td class="id">WP-AN-06</td><td>Design componenti UI</td><td>Definire sistema di design mobile-first</td><td>Design system (colori, font, bottoni)</td><td>3 gg</td><td>Dev</td></tr>
+    <tr><td class="id">WP-FE-01</td><td>Setup React + routing</td><td>Inizializzare il progetto frontend</td><td>Progetto React configurato + CI</td><td>4 gg</td><td>Dev</td></tr>
+    <tr><td class="id">WP-FE-02</td><td>Flusso chatbot e domande</td><td>Implementare le schermate del chatbot</td><td>Chatbot navigabile (mock backend)</td><td>9 gg</td><td>Dev</td></tr>
+    <tr><td class="id">WP-FE-03</td><td>Mobile-first UI e responsive</td><td>Ottimizzare per touch e schermi piccoli</td><td>UI testata su 3 dispositivi target</td><td>6 gg</td><td>Dev</td></tr>
+    <tr><td class="id">WP-BE-01</td><td>Setup Node.js + PostgreSQL</td><td>Configurare server, DB, autenticazione</td><td>Server avviato, schema DB migrato</td><td>5 gg</td><td>Dev</td></tr>
+    <tr><td class="id">WP-BE-02</td><td>API REST chatbot</td><td>Endpoints per il flusso conversazionale</td><td>API documentate e testate (Postman)</td><td>10 gg</td><td>Dev</td></tr>
+    <tr><td class="id" style="color:#8E44AD;font-weight:bold;">WP-BE-03 ★</td><td>Motore calcolo preventivi</td><td>Implementare le formule di Giovanni</td><td>Engine funzionante con test di accuratezza</td><td>12 gg</td><td>Dev (+ Giovanni per verifica)</td></tr>
+    <tr><td class="id">WP-BE-04</td><td>Sistema email SMTP</td><td>Invio email riepilogativa all'utente</td><td>Template email + log invii</td><td>4 gg</td><td>Dev</td></tr>
+    <tr><td class="id">WP-CRM-01</td><td>Dashboard lead</td><td>Visualizzazione e filtro dei lead raccolti</td><td>Pannello admin funzionante</td><td>6 gg</td><td>Dev</td></tr>
+    <tr><td class="id">WP-CRM-02</td><td>Pannello admin prezzi</td><td>Aggiornamento fasce prezzo senza dev</td><td>Form CRUD per Giovanni/Elena</td><td>4 gg</td><td>Dev</td></tr>
+    <tr><td class="id">WP-CRM-03</td><td>Notifiche per ruolo</td><td>Email notifica lead al ruolo configurato</td><td>Sistema notifiche testato</td><td>4 gg</td><td>Dev</td></tr>
+    <tr><td class="id">WP-TS-01</td><td>Unit + Integration testing</td><td>Verificare correttezza di ogni modulo</td><td>Report test coverage ≥ 80%</td><td>8 gg</td><td>Dev</td></tr>
+    <tr><td class="id">WP-TS-02</td><td>Beta testing utenti reali</td><td>Validazione con Elena e clienti pilota</td><td>Report UAT con feedback</td><td>8 gg</td><td>Dev + Elena + Marco</td></tr>
+    <tr><td class="id">WP-TS-03</td><td>Bug fixing e ottimizzazione</td><td>Risolvere criticità emerse dal testing</td><td>Release candidate stabile</td><td>7 gg</td><td>Dev</td></tr>
+    <tr><td class="id">WP-RL-01</td><td>Setup server e deploy</td><td>Configurare produzione e deploy pipeline</td><td>App in produzione + SSL</td><td>5 gg</td><td>Dev</td></tr>
+    <tr><td class="id">WP-RL-02</td><td>Integrazione sito cliente</td><td>Inserire widget chatbot nel sito Ferretti</td><td>Widget funzionante nel sito live</td><td>4 gg</td><td>Dev + Marco</td></tr>
+    <tr><td class="id">WP-RL-03</td><td>Formazione utenti</td><td>Formare Elena e Giovanni sul pannello</td><td>Sessione formazione + manuale utente</td><td>4 gg</td><td>Marco + Elena + Giovanni</td></tr>
+    <tr><td class="id" style="color:#1ABC9C;font-weight:bold;">WP-RL-04 ◆</td><td>Go-live e monitoraggio</td><td>Rilascio pubblico e sorveglianza post-lancio</td><td>MVP attivo + report 1a settimana</td><td>5 gg</td><td>Dev + Marco + Luca</td></tr>
+  </tbody>
+</table>
+<p style="text-align:center;font-size:11px;color:#888;margin-top:16px;">★ = Work Package critico  •  ◆ = Milestone finale  •  Totale Work Package: 23  •  Durata complessiva: ~107 gg/uomo</p>
+
+</body>
+</html>
