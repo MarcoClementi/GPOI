@@ -1,3 +1,4 @@
+```mermaid
 gantt
     title SmartPreventivo MVP - Gantt secondo metodologia ingegneria del software
     dateFormat  YYYY-MM-DD
@@ -39,3 +40,4 @@ gantt
     section Rilascio
     Documentazione tecnica e README              :r1, after t3, 2d
     Deploy e consegna su GitHub                  :milestone, after r1, 0d
+```
